@@ -14,9 +14,10 @@
 
 > ### 🌐 **Live Deployments & Cloud Infrastructure**
 > - **Frontend (Vercel)**: **[https://forecast-fqiy1u941-adi0608.vercel.app](https://forecast-fqiy1u941-adi0608.vercel.app)** (Mirror: **[https://forecast-x-adi0608.vercel.app](https://forecast-x-adi0608.vercel.app)**)  
-> - **Backend API (Render)**: Deploy in 1-Click with Render Blueprint `render.yaml`:  
->   [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Aadityasingh08/ForecastX)  
-> *Full-stack meteorological intelligence platform deployed across Vercel and Render.*
+> - **Backend API (Render)**: **[https://forecastx-backend.onrender.com](https://forecastx-backend.onrender.com)**  
+> - **Interactive Swagger Docs**: **[https://forecastx-backend.onrender.com/docs](https://forecastx-backend.onrender.com/docs)**  
+> - **API Health Check**: **[https://forecastx-backend.onrender.com/api/health](https://forecastx-backend.onrender.com/api/health)**  
+> *Full-stack meteorological intelligence platform deployed across Vercel (Frontend) and Render (Backend).*
 
 ---
 
