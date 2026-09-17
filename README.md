@@ -141,3 +141,13 @@ npm run build
 ## 7. License & Attribution
 - Built for a Safer, Resilient India 🇮🇳
 - Data sources: India Meteorological Department (IMD), ISRO (MOSDAC), WMO, ECMWF, INCOIS, NOAA.
+
+---
+
+## 👨‍💻 Author & Creator
+**Made with ❤️ by [Aditya Singh](https://github.com/Aadityasingh08)**
+
+- **GitHub**: [@Aadityasingh08](https://github.com/Aadityasingh08)
+- **LinkedIn**: [Aditya Singh](https://www.linkedin.com/in/aditya-singh-392b9934b/)
+- **Email**: [adityasingh.as0608@gmail.com](mailto:adityasingh.as0608@gmail.com)
+

@@ -28,6 +28,8 @@ export const Footer: React.FC = () => {
         <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-700">
           <span>🇮🇳</span>
           <span>Made for a Safer, Resilient India</span>
+          <span className="text-slate-300">•</span>
+          <span>Made by <a href="https://github.com/Aadityasingh08" target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">Aditya Singh</a></span>
         </div>
       </div>
     </footer>
