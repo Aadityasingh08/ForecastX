@@ -51,6 +51,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         cities={cities}
         onSelectCity={handleCitySelect}
         onViewMore={() => onNavigate('search')}
+        selectedLanguage={selectedLanguage}
       />
 
       {/* Main Grid: Interactive Map (Left) + Ask ForecastX (Right) */}
@@ -79,14 +80,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
           warnings={warnings}
           onViewAll={() => onNavigate('warnings')}
           onSelectWarning={() => onNavigate('warnings')}
+          selectedLanguage={selectedLanguage}
         />
 
         <CycloneTrackingCard
           cyclone={cyclone}
           onViewDetails={() => onNavigate('cyclones')}
+          selectedLanguage={selectedLanguage}
         />
 
-        <QuickAccessCard onNavigate={onNavigate} />
+        <QuickAccessCard onNavigate={onNavigate} selectedLanguage={selectedLanguage} />
       </div>
     </div>
   );

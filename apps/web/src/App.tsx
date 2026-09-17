@@ -14,6 +14,7 @@ import { AviationPage } from '@/pages/AviationPage';
 import { ClimatePage } from '@/pages/ClimatePage';
 import { AdminPage } from '@/pages/AdminPage';
 import { LoginPage } from '@/pages/LoginPage';
+import { ResourcesPage } from '@/pages/ResourcesPage';
 import { SettingsModal } from '@/pages/SettingsModal';
 import { LoginModal } from '@/components/LoginModal';
 
@@ -22,7 +23,40 @@ export const App: React.FC = () => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+
+  // Language state persisted in localStorage
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(() => {
+    return localStorage.getItem('forecastx_lang') || 'en';
+  });
+
+  // Dark / Light Theme state persisted in localStorage
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const saved = localStorage.getItem('forecastx_theme');
+    if (saved === 'dark' || saved === 'light') return saved;
+    return typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('forecastx_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  const handleLanguageChange = (lang: string) => {
+    setSelectedLanguage(lang);
+    localStorage.setItem('forecastx_lang', lang);
+  };
+
   const [tempUnit, setTempUnit] = useState<'C' | 'F'>('C');
   const [windUnit, setWindUnit] = useState<'kmh' | 'knots'>('kmh');
   const [searchTargetCity, setSearchTargetCity] = useState<string>('Kanpur');
@@ -121,43 +155,21 @@ export const App: React.FC = () => {
       case 'login':
         return <LoginPage onLoginSuccess={handleLoginSuccess} />;
       case 'resources':
-        return (
-          <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm space-y-4">
-            <h2 className="text-xl font-extrabold text-[#0f2942]">
-              Meteorological Reference Documents & Specifications
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-                <h4 className="font-bold text-slate-900">IMD AWS Data Schema & API Guide</h4>
-                <p className="text-slate-500">Official protocol specs for Synoptic and Automatic Weather Stations.</p>
-              </div>
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-                <h4 className="font-bold text-slate-900">OASIS Common Alerting Protocol (CAP v1.2)</h4>
-                <p className="text-slate-500">Standard XML/JSON schema for public safety alert dissemination.</p>
-              </div>
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-                <h4 className="font-bold text-slate-900">WMO WIS2 Architecture Overview</h4>
-                <p className="text-slate-500">World Meteorological Organization global data exchange standards.</p>
-              </div>
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-                <h4 className="font-bold text-slate-900">ISRO MOSDAC Satellite Ingestion</h4>
-                <p className="text-slate-500">INSAT-3DR and Oceansat sensor processing pipelines.</p>
-              </div>
-            </div>
-          </div>
-        );
+        return <ResourcesPage selectedLanguage={selectedLanguage} />;
       default:
         return <Dashboard onNavigate={setActiveTab} selectedLanguage={selectedLanguage} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex flex-col">
+    <div className={`min-h-screen ${theme === 'dark' ? 'dark bg-slate-950 text-slate-100' : 'bg-[#f8fafc] text-slate-800'} flex flex-col transition-colors duration-200`}>
       {/* Top Fixed Header */}
       <Header
         onSearchSubmit={handleGlobalSearch}
         selectedLanguage={selectedLanguage}
-        onLanguageChange={setSelectedLanguage}
+        onLanguageChange={handleLanguageChange}
+        theme={theme}
+        onToggleTheme={toggleTheme}
         onToggleSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
         onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenLogin={() => setIsLoginModalOpen(true)}
@@ -174,6 +186,7 @@ export const App: React.FC = () => {
           onSelectTab={handleTabSelect}
           isOpenMobile={isMobileSidebarOpen}
           onCloseMobile={() => setIsMobileSidebarOpen(false)}
+          selectedLanguage={selectedLanguage}
         />
 
         {/* Dynamic Page Content */}
@@ -183,14 +196,14 @@ export const App: React.FC = () => {
       </div>
 
       {/* Global Footer */}
-      <Footer />
+      <Footer selectedLanguage={selectedLanguage} />
 
       {/* Settings Modal */}
       <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
         selectedLanguage={selectedLanguage}
-        onLanguageChange={setSelectedLanguage}
+        onLanguageChange={handleLanguageChange}
         tempUnit={tempUnit}
         onTempUnitChange={setTempUnit}
         windUnit={windUnit}
