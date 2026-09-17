@@ -2,6 +2,7 @@
 ### *Conversational Weather Intelligence for a Safer India* 🇮🇳
 
 [![Vercel Deployment](https://img.shields.io/badge/Vercel-Live%20Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://forecast-fqiy1u941-adi0608.vercel.app)
+[![Deploy to Render](https://img.shields.io/badge/Render-Deploy%20Backend-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com/deploy?repo=https://github.com/Aadityasingh08/ForecastX)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-18+-61DAFB.svg?style=for-the-badge&logo=react)](https://reactjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6.svg?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
@@ -11,10 +12,11 @@
 
 ---
 
-> ### 🌐 **Live Vercel Application**
-> **Production URL**: **[https://forecast-fqiy1u941-adi0608.vercel.app](https://forecast-fqiy1u941-adi0608.vercel.app)**  
-> **Direct Mirror**: **[https://forecast-x-adi0608.vercel.app](https://forecast-x-adi0608.vercel.app)**  
-> *Fully deployed on Vercel Edge with Serverless FastAPI Python backend and React 18 frontend.*
+> ### 🌐 **Live Deployments & Cloud Infrastructure**
+> - **Frontend (Vercel)**: **[https://forecast-fqiy1u941-adi0608.vercel.app](https://forecast-fqiy1u941-adi0608.vercel.app)** (Mirror: **[https://forecast-x-adi0608.vercel.app](https://forecast-x-adi0608.vercel.app)**)  
+> - **Backend API (Render)**: Deploy in 1-Click with Render Blueprint `render.yaml`:  
+>   [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Aadityasingh08/ForecastX)  
+> *Full-stack meteorological intelligence platform deployed across Vercel and Render.*
 
 ---
 
@@ -179,6 +181,28 @@ Run frontend TypeScript & production build validation:
 cd apps/web
 npm run build
 ```
+
+---
+
+## 8. Deploying Backend on Render
+
+The repository includes a production-ready Render Blueprint [`render.yaml`](render.yaml).
+
+### Option A: 1-Click Blueprint (Recommended)
+1. Click the button below:  
+   [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Aadityasingh08/ForecastX)
+2. Connect your GitHub account and select repository `ForecastX`.
+3. Render automatically reads `render.yaml` and configures the environment, build command, and start command.
+4. Click **Apply**. Your FastAPI backend is live in ~2 minutes!
+
+### Option B: Manual Web Service
+- **Service Type**: Web Service
+- **Repository**: `https://github.com/Aadityasingh08/ForecastX`
+- **Root Directory**: `apps/api`
+- **Environment**: `Python 3`
+- **Build Command**: `pip install -r requirements.txt`
+- **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+- **Health Check Path**: `/api/health`
 
 ---
 
