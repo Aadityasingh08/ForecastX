@@ -14,6 +14,7 @@ build/
 
 # Environment and Secrets
 .env
+forecastx.env
 .env.local
 .env.*.local
 !.env.example

@@ -120,20 +120,20 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Center: Live Location Pill & Global Search Bar */}
-        <div className="flex-1 max-w-2xl mx-2 lg:mx-4 flex items-center gap-2">
+        <div className="flex-1 max-w-xl mx-2 lg:mx-4 flex items-center gap-2">
           {/* Live Location Quick Pill */}
           <button
             type="button"
             onClick={handleDetectLiveLocation}
             title="Click to detect your live GPS location"
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-blue-50/70 hover:bg-blue-100/80 border border-blue-200 rounded-xl text-xs font-bold text-blue-800 transition-all flex-shrink-0 shadow-2xs"
+            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-blue-50/80 hover:bg-blue-100 border border-blue-200 rounded-xl text-xs font-bold text-blue-900 transition-all flex-shrink-0 shadow-xs"
           >
             <Navigation className={`w-3.5 h-3.5 text-blue-600 ${isLocating ? 'animate-spin' : ''}`} />
             <span>
-              {isLocating ? 'Detecting...' : `Live: ${liveLocationName}`}
+              {isLocating ? 'Detecting GPS...' : `Live: ${liveLocationName}`}
             </span>
             {liveLocationTemp !== null && !isLocating && (
-              <span className="text-blue-900 bg-white/80 px-1.5 py-0.2 rounded-md text-[11px]">
+              <span className="text-white bg-blue-600 px-1.5 py-0.2 rounded-md text-[11px] font-extrabold">
                 {liveLocationTemp}°C
               </span>
             )}
@@ -147,8 +147,8 @@ export const Header: React.FC<HeaderProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search city, district, pincode or ask 'Will it rain in Kanpur?'..."
-              className="w-full pl-10 pr-12 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all shadow-xs"
+              placeholder="Search city, district or ask a weather question..."
+              className="w-full pl-10 pr-10 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all shadow-xs"
             />
             <button
               type="submit"
