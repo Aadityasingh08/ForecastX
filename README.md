@@ -1,7 +1,7 @@
 # FORECASTX
 ### *Conversational Weather Intelligence for a Safer India* 🇮🇳
 
-[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live%20Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://forecast-fqiy1u941-adi0608.vercel.app)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live%20Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://forecast-x-lake.vercel.app)
 [![Deploy to Render](https://img.shields.io/badge/Render-Deploy%20Backend-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com/deploy?repo=https://github.com/Aadityasingh08/ForecastX)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-18+-61DAFB.svg?style=for-the-badge&logo=react)](https://reactjs.org)
@@ -13,7 +13,7 @@
 ---
 
 > ### 🌐 **Live Deployments & Cloud Infrastructure**
-> - **Frontend (Vercel)**: **[https://forecast-fqiy1u941-adi0608.vercel.app](https://forecast-fqiy1u941-adi0608.vercel.app)** (Mirror: **[https://forecast-x-adi0608.vercel.app](https://forecast-x-adi0608.vercel.app)**)  
+> - **Frontend (Vercel)**: **[https://forecast-x-lake.vercel.app](https://forecast-x-lake.vercel.app)** (Direct: **[https://forecast-6q8u3o7pn-adi0608.vercel.app](https://forecast-6q8u3o7pn-adi0608.vercel.app)**)  
 > - **Backend API (Render)**: **[https://forecastx-backend.onrender.com](https://forecastx-backend.onrender.com)**  
 > - **Interactive Swagger Docs**: **[https://forecastx-backend.onrender.com/docs](https://forecastx-backend.onrender.com/docs)**  
 > - **API Health Check**: **[https://forecastx-backend.onrender.com/api/health](https://forecastx-backend.onrender.com/api/health)**  
