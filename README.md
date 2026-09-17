@@ -1,136 +1,180 @@
 # FORECASTX
-### *Conversational Weather Intelligence for a Safer India*
+### *Conversational Weather Intelligence for a Safer India* 🇮🇳
 
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-18+-61DAFB.svg?logo=react)](https://reactjs.org)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6.svg?logo=typescript)](https://www.typescriptlang.org)
-[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4+-38B2AC.svg?logo=tailwind-css)](https://tailwindcss.com)
-[![Leaflet](https://img.shields.io/badge/Leaflet-1.9+-199900.svg?logo=leaflet)](https://leafletjs.com)
-[![Python](https://img.shields.io/badge/Python-3.11+-3776AB.svg?logo=python)](https://python.org)
-
----
-
-## 1. Product Vision
-**ForecastX** is an authoritative conversational meteorological intelligence platform built to serve the public, disaster response teams, farmers, mariners, aviation professionals, and government agencies across India.
-
-### Core Architecture Principle:
-```
-Meteorological Data = Source of Truth
-GIS                 = Spatial Intelligence
-Rules Engine        = Safety-Critical Decisions
-RAG                 = Contextual Knowledge
-LLM                 = Conversational Interface & Reasoning
-NWP                 = Forecast Physics
-```
-The conversational LLM **never invents weather data**. ForecastX queries authoritative meteorological structures first (IMD, MOSDAC, ECMWF, WMO) and then uses AI to explain the conditions clearly with mandatory source citations and timestamps.
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live%20Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://forecast-fqiy1u941-adi0608.vercel.app)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React-18+-61DAFB.svg?style=for-the-badge&logo=react)](https://reactjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6.svg?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4+-38B2AC.svg?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
+[![Leaflet](https://img.shields.io/badge/Leaflet-1.9+-199900.svg?style=for-the-badge&logo=leaflet)](https://leafletjs.com)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB.svg?style=for-the-badge&logo=python)](https://python.org)
 
 ---
 
-## 2. Quick Start (Run Locally)
+> ### 🌐 **Live Vercel Application**
+> **Production URL**: **[https://forecast-fqiy1u941-adi0608.vercel.app](https://forecast-fqiy1u941-adi0608.vercel.app)**  
+> **Direct Mirror**: **[https://forecast-x-adi0608.vercel.app](https://forecast-x-adi0608.vercel.app)**  
+> *Fully deployed on Vercel Edge with Serverless FastAPI Python backend and React 18 frontend.*
+
+---
+
+## 1. Product Vision & Philosophy
+
+**ForecastX** is an authoritative conversational meteorological intelligence platform built to serve the public, disaster management authorities, farmers, mariners, aviation professionals, and state administrators across India.
+
+### Core Architectural Principle
+```
+┌────────────────────────────────────────────────────────┐
+│ Meteorological Data = Authoritative Source of Truth     │
+│ GIS Spatial Engine  = Hyperlocal Real-time Context     │
+│ Rules Engine        = Safety-Critical Public Decisions │
+│ RAG Pipeline        = Domain Knowledge Retrieval       │
+│ LLM AI Engine       = Conversational Reasoning & Voice │
+│ NWP Physics Models  = IMD GFS, ECMWF IFS, NOAA GFS     │
+└────────────────────────────────────────────────────────┘
+```
+**Zero-Hallucination AI Commitment**: The conversational AI **never invents or guesses weather figures**. Every single output is grounded in structured, authoritative meteorological payloads (IMD, ISRO MOSDAC, ECMWF, WMO) with mandatory source citations and timestamps.
+
+---
+
+## 2. Key Platform Features
+
+### 🗺️ Interactive India Weather GIS Platform
+- **Zero-API-Key Architecture**: Seamless OpenStreetMap basemap with instant tile failover.
+- **Atmospheric Layer Tabs**:
+  - `📡 Live Radar`: Real-time rain swath, cyclone vortex, and interactive AWS station pins.
+  - `🌧️ Doppler Rainfall`: Color-coded reflectivity bands (0 to 100+ mm/h).
+  - `🌡️ Temperature Heatmap`: Thermal isotherm zones across all Indian climate divisions (18°C Himalayas to 41°C Thar Desert).
+  - `💨 Wind Flow Streamlines`: Dynamic directional vectors with velocity tags (15 km/h to 120 km/h Cyclone core).
+  - `☁️ Satellite Clouds`: INSAT-3DR infrared convective cloud top simulation.
+- **Interactive City Pins & Rich Popups**: Real-time temperature, humidity, wind velocity, and deep-dive forecast links.
+- **Basemap Switcher**: Switch between Street, High-Resolution Satellite (ESRI), Terrain (Carto), and Dark Operations modes with one click.
+- **Fullscreen GIS Mode**: Expand to full-screen view for emergency operations centers.
+
+### 📍 Live Hyperlocal Geolocation
+- Automatic browser GPS coordinate acquisition (`navigator.geolocation`).
+- Reverse geocoding endpoint (`/api/locations/reverse`) resolving exact Indian cities, districts, and states.
+- Dedicated **"Locate Me"** crosshair on the map that drops a pulsating radar beacon with accuracy metrics (±X meters).
+
+### 🤖 "Ask ForecastX" Conversational AI
+- SSE (Server-Sent Events) streaming token generation.
+- Grounded prompt synthesis with IMD, ISRO, and ECMWF citations.
+- Speech-to-Text (Voice input) and Text-to-Speech (Audio output).
+- Multilingual reasoning in English and Hindi (हिंदी).
+
+### 🌪️ Real-Time Cyclone Tracking (Bay of Bengal & Arabian Sea)
+- INSAT-3DR satellite eye view with rotating vortex animation.
+- Observed vs. Projected forecast cone with landfall waypoint coordinates (e.g. Dhamra Port).
+- Storm intensity metrics: Central pressure (984 hPa), sustained winds (120 km/h), translation velocity (NW at 12 km/h).
+
+### 🚨 National CAP Warnings Center
+- Common Alerting Protocol (CAP v1.2) compliant alert feeds.
+- Filterable by Severity (Severe, High, Moderate, Watch), Hazard type, and State.
+- Public evacuation directives and safety advisories.
+
+### 🌾 Sector-Specific Meteorological Intelligence
+- **Agrometeorological (Agri)**: State/district crop stages, irrigation directives, and chemical spray alerts.
+- **Marine & Ocean**: Sea state, wave height, swell period, port danger signals.
+- **Aviation**: METAR and TAF decoding, flight categories (VFR/IFR), cloud ceilings.
+- **Climate & Verification**: 10-year monthly anomalies, multi-model comparison (IMD vs ECMWF vs GFS), and RMSE accuracy scorecards.
+
+### 🔐 User Portal & One-Click Role Personas
+- Dedicated `/login` portal and popup modal with JWT session issuance.
+- **1-Click Demo Profiles**:
+  - 👨‍💼 **James Anderson** — Senior IMD Meteorologist (`james@forecastx.gov.in`)
+  - 🛡️ **Priya Jena** — Odisha Disaster Operations Lead (`priya.jena@odisha.gov.in`)
+  - 🌾 **Dr. R. Sharma** — Punjab Agriculture Officer (`sharma.r@punjabagri.gov.in`)
+  - 🚗 **Citizen Traveler** — Citizen User (`traveler@delhi.org`)
+
+---
+
+## 3. Quick Start (Run Locally)
 
 ### Prerequisites
 - Python 3.11+
 - Node.js 18+ and npm
-- (Optional) Docker and Docker Compose
 
-### Instant Local Launch
-Clone the repository and run:
-
+### ⚡ 1-Click Startup (Windows)
+Simply double-click:
 ```bash
-# 1. Setup Python Virtualenv & Install Dependencies
-python -m venv apps/api/.venv
-apps/api/.venv/Scripts/pip install -r apps/api/requirements.txt   # (On Windows)
-# source apps/api/.venv/bin/activate && pip install -r apps/api/requirements.txt # (On Linux/macOS)
+start.bat
+# or
+START_FORECASTX.bat
+```
+This automatically initializes the FastAPI backend, launches the Vite dev server, and opens `http://localhost:5173` in your default browser!
 
-# 2. Install Web Dependencies
+### 💻 Manual Step-by-Step Launch
+```bash
+# 1. Setup Backend
+python -m venv apps/api/.venv
+apps/api/.venv/Scripts/pip install -r apps/api/requirements.txt   # (Windows)
+# source apps/api/.venv/bin/activate && pip install -r apps/api/requirements.txt # (macOS/Linux)
+
+# 2. Setup Frontend
 cd apps/web
 npm install
 cd ../..
 
-# 3. Launch Both Backend & Frontend with One Command
+# 3. Launch Both Simultaneously
 python scripts/run_local.py
-# Or on Windows simply double-click: scripts\start.bat
 ```
 
-- **Frontend Application**: `http://localhost:5173`
+- **Frontend App**: `http://localhost:5173`
 - **Backend API**: `http://127.0.0.1:8000`
 - **Interactive Swagger Docs**: `http://127.0.0.1:8000/docs`
 
 ---
 
-## 3. Docker Deployment
+## 4. Full Production Deployment (Vercel)
 
-To launch the full production container stack with PostgreSQL, PostGIS, Redis, FastAPI, and Nginx:
+ForecastX is natively configured for Vercel deployment:
+- **`vercel.json`**: Directs `/api/*` to the Python Serverless ASGI handler and all other routes to the static Vite bundle (`apps/web/dist`).
+- **`api/index.py`**: Serverless function entry point exposing FastAPI.
+
+### Deploy to Your Own Vercel Account
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FAadityasingh08%2FForecastX)
+
+---
+
+## 5. Docker Deployment
+
+To spin up the containerized architecture with PostGIS, Redis, FastAPI, and Nginx:
 
 ```bash
 docker-compose up --build
 ```
-- Web UI: `http://localhost`
-- API Backend: `http://localhost:8000`
-- PostGIS: `localhost:5432`
-- Redis: `localhost:6379`
+| Service | Endpoint |
+|---|---|
+| Web Frontend | `http://localhost` |
+| API Backend | `http://localhost:8000` |
+| PostGIS Spatial DB | `localhost:5432` |
+| Redis Cache | `localhost:6379` |
 
 ---
 
-## 4. Key Features
+## 6. Evaluation Scenarios
 
-1. **Dashboard UI**: Pixel-accurate implementation of the official ForecastX dashboard with:
-   - Flagship city cards: New Delhi, Mumbai, Chennai, Kolkata.
-   - Interactive Leaflet weather map with rainfall intensity legend, active layers panel, and cyclone eye vortex in the Bay of Bengal.
-   - **Ask ForecastX** AI chat panel with SSE streaming tokens, voice input, image upload, and clickable source citations.
-   - Active CAP warnings, Cyclone tracking, and Quick Access cards.
-2. **Interactive Weather Map**:
-   - Dynamic layers: Live Weather, Rainfall, Temperature, Wind, Cloud Cover, District Boundaries.
-   - Cyclone tracking: Real-time center coordinates, observed and forecast cones, storm category.
-3. **Weather Search & Deep Dive**:
-   - Location resolution by city, district, pincode (e.g. 208001), or coordinates (`28.61, 77.20`).
-   - 24-hour Recharts temperature & rainfall charts, 7-day outlook.
-4. **National CAP Warnings Center**:
-   - Common Alerting Protocol (CAP v1.2) warnings filterable by severity (Severe, High, Moderate, Watch), hazard, and state.
-   - Official public safety and evacuation instructions.
-5. **Bay of Bengal & Arabian Sea Cyclone Tracking**:
-   - Satellite eye view (INSAT-3DR Rapid Scan).
-   - Sustained wind speeds (120 km/h), central pressure (984 hPa), translation speed (NW at 12 km/h).
-   - Trajectory table with waypoints and landfall projection.
-6. **Corridor Route Weather**:
-   - New Delhi → Jaipur (NH-48) with highway weather checkpoints and warning section detection (Kotputli rain & thunderstorm).
-7. **Specialized Sectors**:
-   - **Gramin Krishi Mausam Seva (Agri)**: State/district crop growth stages, spraying directives, and irrigation advisories.
-   - **Marine & Ocean Services**: Wave heights, swell period, sea state, port danger signals.
-   - **Aviation**: METAR/TAF raw and decoded flight categories (VFR/IFR), cloud ceilings, and altimeters.
-   - **Climate & Verification**: 10-year monthly anomalies, multi-model NWP comparison (IMD vs ECMWF vs GFS), and MAE/RMSE scorecards.
-8. **Multilingual & Voice**:
-   - English, Hindi (हिंदी), and Indian languages.
-   - Speech-to-Text and Text-to-Speech audio synthesis.
+The platform includes authoritative test datasets ready for verification:
+
+| Scenario | Input Query / Action | Expected Result |
+|---|---|---|
+| **1. Kanpur Rain** | *"Will it rain in Kanpur tomorrow?"* | Retrieves IMD Chakeri forecast showing 85% probability of moderate-to-heavy rain (25–45 mm) under Yellow Alert. |
+| **2. Odisha Cyclone** | *"Is there any cyclone threat to Odisha?"* | Displays active Bay of Bengal Severe Cyclonic Storm (120 km/h) with landfall near Dhamra Port. |
+| **3. Highway Route** | *"Show me the weather along Delhi to Jaipur route"* | Analyzes NH-48 corridor and flags severe thunderstorm deterioration at Kotputli stretch. |
+| **4. Hindi Query** | *"Explain today's weather in Hindi"* | Generates fluent meteorological analysis in natural Hindi with safety advisory. |
+| **5. NWP Comparison** | *"Compare ECMWF and GFS for Delhi tomorrow"* | Displays model divergence table with precipitation differences between ECMWF (6.8 mm) and GFS (1.5 mm). |
 
 ---
 
-## 5. Demo Scenarios (`DEMO_MODE=true`)
+## 7. Running Automated Tests
 
-The application comes pre-loaded with realistic, authoritative Indian meteorological datasets:
-
-- **Scenario 1**: Click or type: `"Will it rain in Kanpur tomorrow?"`
-  - *Retrieves IMD Chakeri forecast showing 85% probability of moderate-to-heavy rain (25-45 mm) under Yellow Alert.*
-- **Scenario 2**: Click or type: `"Is there any cyclone threat to Odisha?"`
-  - *Displays active Bay of Bengal Severe Cyclonic Storm, 120 km/h winds, and landfall near Dhamra Port.*
-- **Scenario 3**: Click or type: `"Show me the weather along Delhi to Jaipur route"`
-  - *Analyzes NH-48 corridor and flags severe thunderstorm deterioration at Kotputli.*
-- **Scenario 4**: Click or type: `"Explain today's weather in Hindi."`
-  - *Generates fluent meteorological explanation in Hindi.*
-- **Scenario 5**: Click or type: `"Compare ECMWF and GFS for Delhi tomorrow"`
-  - *Shows multi-model comparison table highlighting precipitation divergence.*
-
----
-
-## 6. Running Automated Tests
-
-Run the backend test suite:
+Run backend unit tests:
 ```bash
 cd apps/api
 .venv/Scripts/python.exe -m pytest tests/ -v
 ```
 
-Run the frontend TypeScript & production build check:
+Run frontend TypeScript & production build validation:
 ```bash
 cd apps/web
 npm run build
@@ -138,16 +182,16 @@ npm run build
 
 ---
 
-## 7. License & Attribution
-- Built for a Safer, Resilient India 🇮🇳
-- Data sources: India Meteorological Department (IMD), ISRO (MOSDAC), WMO, ECMWF, INCOIS, NOAA.
-
----
-
 ## 👨‍💻 Author & Creator
 **Made with ❤️ by [Aditya Singh](https://github.com/Aadityasingh08)**
 
-- **GitHub**: [@Aadityasingh08](https://github.com/Aadityasingh08)
-- **LinkedIn**: [Aditya Singh](https://www.linkedin.com/in/aditya-singh-392b9934b/)
-- **Email**: [adityasingh.as0608@gmail.com](mailto:adityasingh.as0608@gmail.com)
+- 🌐 **Live Website**: [https://forecast-fqiy1u941-adi0608.vercel.app](https://forecast-fqiy1u941-adi0608.vercel.app)
+- 🐙 **GitHub**: [@Aadityasingh08](https://github.com/Aadityasingh08)
+- 💼 **LinkedIn**: [Aditya Singh](https://www.linkedin.com/in/aditya-singh-392b9934b/)
+- 📧 **Email**: [adityasingh.as0608@gmail.com](mailto:adityasingh.as0608@gmail.com)
 
+---
+
+## 📜 License & Data Attribution
+Built for a Safer, Resilient India 🇮🇳  
+Authoritative meteorological feeds and standards: **India Meteorological Department (IMD)**, **ISRO (MOSDAC)**, **WMO (WIS2)**, **ECMWF**, **INCOIS**, and **NOAA**.
