@@ -5,6 +5,7 @@
   "scripts": {
     "sync-api": "node scripts/sync-api.js",
     "build": "node scripts/sync-api.js && cd apps/web && npm install && npm run build",
-    "vercel-build": "node scripts/sync-api.js && cd apps/web && npm install && npm run build"
+    "vercel-build": "node scripts/sync-api.js && cd apps/web && npm install && npm run build",
+    "deploy": "node scripts/sync-api.js && vercel --prod"
   }
 }
