@@ -200,6 +200,17 @@ export interface RouteWeatherRequest {
   departure_time?: string;
 }
 
+export interface DepartureWindow {
+  departure_time: string;
+  offset_hours: number;
+  label: string;
+  overall_risk: string;
+  max_rain_probability: number;
+  max_wind_kmph: number;
+  advisory: string;
+  is_recommended: boolean;
+}
+
 export interface RouteWeatherResponse {
   start_location: string;
   destination_location: string;
@@ -208,9 +219,78 @@ export interface RouteWeatherResponse {
   summary: string;
   has_adverse_weather: boolean;
   severe_section_alert?: string;
+  highest_risk_segment?: string;
+  primary_factor?: string;
+  overall_risk?: string;
+  route_advisory?: string;
   checkpoints: RouteCheckpoint[];
+  departure_windows?: DepartureWindow[];
+  recommended_departure?: string;
   sources: SourceCitation[];
   is_demo?: boolean;
+}
+
+export interface AgriDecisionResponse {
+  location: string;
+  latitude: number;
+  longitude: number;
+  crop: string;
+  current_temperature: number;
+  current_humidity: number;
+  wind_speed_kmph: number;
+  rain_probability_next_24h: number;
+  expected_rain_mm_next_24h: number;
+  spray_window_status: string;
+  spray_recommendation: string;
+  irrigation_status: string;
+  irrigation_recommendation: string;
+  harvest_window_status: string;
+  harvest_recommendation: string;
+  disease_pest_risk: string;
+  disease_pest_advisory: string;
+  sources: SourceCitation[];
+  generated_at: string;
+}
+
+export interface EventFeasibilityResponse {
+  location: string;
+  latitude: number;
+  longitude: number;
+  event_type: string;
+  target_date: string;
+  feasibility_score: number;
+  grade: string;
+  summary: string;
+  temperature_c: number;
+  rain_probability: number;
+  wind_speed_kmph: number;
+  uv_index: number;
+  limiting_factors: string[];
+  best_time_window: string;
+  actionable_contingency: string;
+  sources: SourceCitation[];
+  generated_at: string;
+}
+
+export interface RiskAssessmentResult {
+  overall_risk: string;
+  risk_score: number;
+  primary_hazard: string;
+  advisory: string;
+  action: string;
+  rationales: string[];
+}
+
+export interface BriefingResponse {
+  location: string;
+  latitude: number;
+  longitude: number;
+  issued_at: string;
+  current_weather: CurrentWeather;
+  risk_assessment: RiskAssessmentResult;
+  daily_forecast: DailyForecast[];
+  whatsapp_text: string;
+  source: string;
 }
 
 export interface AgriAdvisoryItem {
@@ -316,8 +396,12 @@ export interface WeatherContext {
 
 export interface ChatResponse {
   response: string;
+  session_id?: string;
   intent: string;
   entities: { [key: string]: any };
+  risk_level?: string;
+  advisory?: string;
+  action?: string;
   weather_context?: WeatherContext;
   sources: SourceCitation[];
   suggested_followups: string[];

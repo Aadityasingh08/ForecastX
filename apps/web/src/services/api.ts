@@ -6,6 +6,9 @@ import {
   RouteWeatherResponse,
   RouteWeatherRequest,
   AgriAdvisoryItem,
+  AgriDecisionResponse,
+  EventFeasibilityResponse,
+  BriefingResponse,
   MarineWeatherReport,
   AviationWeatherReport,
   ModelComparisonResponse,
@@ -15,7 +18,16 @@ import {
   SourceCitation
 } from '@/types';
 
-const API_BASE = '/api';
+const getApiBase = () => {
+  const envUrl = (import.meta as any).env?.VITE_API_URL;
+  if (envUrl && typeof envUrl === 'string' && envUrl.trim().length > 0) {
+    const clean = envUrl.replace(/\/$/, '');
+    return clean.endsWith('/api') ? clean : `${clean}/api`;
+  }
+  return '/api';
+};
+
+const API_BASE = getApiBase();
 
 export async function fetchTopCitiesStrip(): Promise<CurrentWeather[]> {
   const res = await fetch(`${API_BASE}/weather/strip`);
@@ -84,6 +96,24 @@ export async function fetchAgriAdvisories(state?: string, crop?: string): Promis
   return res.json();
 }
 
+export async function fetchAgriDecision(location: string, crop: string = 'Wheat'): Promise<AgriDecisionResponse> {
+  const res = await fetch(`${API_BASE}/advisory/agri?location=${encodeURIComponent(location)}&crop=${encodeURIComponent(crop)}`);
+  if (!res.ok) throw new Error('Failed to fetch agricultural decision intelligence');
+  return res.json();
+}
+
+export async function fetchEventFeasibility(location: string, eventType: string = 'wedding', daysAhead: number = 0): Promise<EventFeasibilityResponse> {
+  const res = await fetch(`${API_BASE}/advisory/event-feasibility?location=${encodeURIComponent(location)}&event_type=${encodeURIComponent(eventType)}&days_ahead=${daysAhead}`);
+  if (!res.ok) throw new Error('Failed to evaluate event feasibility');
+  return res.json();
+}
+
+export async function fetchBriefing(location: string): Promise<BriefingResponse> {
+  const res = await fetch(`${API_BASE}/advisory/briefing?location=${encodeURIComponent(location)}`);
+  if (!res.ok) throw new Error('Failed to generate meteorological briefing');
+  return res.json();
+}
+
 export async function fetchMarineWeather(): Promise<MarineWeatherReport[]> {
   const res = await fetch(`${API_BASE}/marine`);
   if (!res.ok) throw new Error('Failed to fetch marine reports');
@@ -122,11 +152,11 @@ export async function fetchAdminSources(): Promise<any[]> {
   return res.json();
 }
 
-export async function sendChatMessage(message: string, language: string = 'en'): Promise<ChatResponse> {
+export async function sendChatMessage(message: string, language: string = 'en', sessionId?: string): Promise<ChatResponse> {
   const res = await fetch(`${API_BASE}/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message, language }),
+    body: JSON.stringify({ message, language, session_id: sessionId }),
   });
   if (!res.ok) throw new Error('Failed to process message');
   return res.json();
@@ -135,17 +165,31 @@ export async function sendChatMessage(message: string, language: string = 'en'):
 export interface StreamCallbacks {
   onStage?: (stageText: string) => void;
   onToken?: (token: string) => void;
-  onComplete?: (data: { response: string; sources: SourceCitation[]; context?: any }) => void;
+  onComplete?: (data: {
+    response: string;
+    sessionId?: string;
+    riskLevel?: string;
+    advisory?: string;
+    action?: string;
+    sources: SourceCitation[];
+    suggestedFollowups?: string[];
+    context?: any;
+  }) => void;
   onError?: (err: Error) => void;
 }
 
-export function streamChatMessage(message: string, language: string = 'en', callbacks: StreamCallbacks): () => void {
+export function streamChatMessage(
+  message: string,
+  language: string = 'en',
+  sessionId: string | undefined,
+  callbacks: StreamCallbacks
+): () => void {
   const controller = new AbortController();
 
   fetch(`${API_BASE}/chat/stream`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message, language }),
+    body: JSON.stringify({ message, language, session_id: sessionId }),
     signal: controller.signal
   }).then(async (response) => {
     if (!response.body) return;
@@ -177,7 +221,12 @@ export function streamChatMessage(message: string, language: string = 'en', call
             } else if (currentEvent === 'done' && callbacks.onComplete) {
               callbacks.onComplete({
                 response: parsed.response,
+                sessionId: parsed.session_id,
+                riskLevel: parsed.risk_level,
+                advisory: parsed.advisory,
+                action: parsed.action,
                 sources: parsed.sources,
+                suggestedFollowups: parsed.suggested_followups,
                 context: parsed.weather_context
               });
             }

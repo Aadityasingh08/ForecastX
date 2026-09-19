@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "cd apps/web && npm install && npm run build",
-    "vercel-build": "cd apps/web && npm install && npm run build"
+    "sync-api": "node scripts/sync-api.js",
+    "build": "node scripts/sync-api.js && cd apps/web && npm install && npm run build",
+    "vercel-build": "node scripts/sync-api.js && cd apps/web && npm install && npm run build"
   }
 }
