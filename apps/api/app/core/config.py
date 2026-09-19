@@ -10,11 +10,21 @@ class Settings(BaseSettings):
     DEMO_MODE: bool = True
 
     # Database
-    DATABASE_URL: str = (
-        "sqlite:////tmp/forecastx.db"
-        if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME")
-        else "sqlite:///./forecastx.db"
-    )
+    @classmethod
+    def _default_db_url(cls) -> str:
+        # Check serverless markers
+        if any(k in os.environ for k in ("VERCEL", "AWS_LAMBDA_FUNCTION_NAME", "LAMBDA_TASK_ROOT", "NOW_REGION", "VERCEL_REGION")):
+            return "sqlite:////tmp/forecastx.db"
+        try:
+            from pathlib import Path
+            test_f = Path("./.w_test")
+            test_f.touch()
+            test_f.unlink()
+            return "sqlite:///./forecastx.db"
+        except Exception:
+            return "sqlite:////tmp/forecastx.db"
+
+    DATABASE_URL: str = _default_db_url.__func__(None)
     REDIS_URL: str = "redis://localhost:6379/0"
 
     # Security

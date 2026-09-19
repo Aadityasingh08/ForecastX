@@ -1,3 +1,4 @@
+import os
 import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
@@ -43,11 +44,19 @@ async def lifespan(app: FastAPI):
     logger.info(f"Shutting down {settings.APP_NAME}")
 
 
+is_serverless = bool(os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"))
+
+try:
+    from app.models.db_models import init_db
+    init_db()
+except Exception as e:
+    logger.warning(f"Database initialization warning: {e}")
+
 app = FastAPI(
     title=f"{settings.APP_NAME} Meteorological Intelligence API",
     description="Authoritative, conversational, and spatial weather intelligence platform for India.",
     version="1.0.0",
-    lifespan=lifespan
+    lifespan=None if is_serverless else lifespan
 )
 
 # CORS configuration for local development and production
@@ -58,6 +67,23 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request, exc: Exception):
+    import traceback
+    from fastapi.responses import JSONResponse
+    logger.error(f"Unhandled exception at {request.url}: {exc}", exc_info=True)
+    return JSONResponse(
+        status_code=500,
+        content={
+            "error": "Backend Exception",
+            "type": exc.__class__.__name__,
+            "detail": str(exc),
+            "traceback": traceback.format_exc(),
+            "url": str(request.url)
+        }
+    )
 
 # Register API routers with /api and root prefixes for universal deployment compatibility (Local, Vercel, Proxies)
 for pfx in ["/api", ""]:
